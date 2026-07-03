@@ -1,7 +1,9 @@
 name: Build Sinum pour Windows User
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch: # Permet aussi de le lancer manuellement si besoin
 
 jobs:
   build:
@@ -10,8 +12,9 @@ jobs:
       - name: Récupérer le code
         uses: actions/checkout@v4
 
-      - name: Lancer le build natif Mac
+      - name: Lancer le build natif Mac dans le dossier iOS
         run: |
+          cd iOS
           chmod +x build-mac.sh
           ./build-mac.sh
 
@@ -19,4 +22,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: sinum-compilé
-          path: .
+          path: iOS/
