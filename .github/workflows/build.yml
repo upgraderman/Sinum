@@ -1,0 +1,22 @@
+name: Build Sinum pour Windows User
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Lancer le build natif Mac
+        run: |
+          chmod +x build-mac.sh
+          ./build-mac.sh
+
+      - name: Récupérer le fichier compilé
+        uses: actions/upload-artifact@v4
+        with:
+          name: sinum-compilé
+          path: .
